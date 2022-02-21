@@ -35,3 +35,6 @@
 4. 스프링 시큐리티는 인메모리 세션저장소인 SecurityContextHolder에 UserDetails 정보를 저장한다.
 5. 클라이언트에게 session ID와 함께 응답한다.
 6. 이후 요청에 대해서는 요청 쿠키에서 JSESSION ID 정보를 통해 이미 로그인 정보가 저장되어있는지 확인하며, 이미 저장되어 있고 유효하면 인증 처리를 해준다.
+
+#### 출처
+- https://velog.io/@oyeon/Spring-Security-%EA%B0%9C%EC%9A%94
