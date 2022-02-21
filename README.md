@@ -25,3 +25,13 @@
   |SessionManagementFilter|이 필터는 인증된 사용자와 관련된 모든 세션을 추적한다.|
   |ExceptionTranslationFilter|이 필터는 보호된 요청을 처리하는 중에 발생할 수 있는 예외를 위임하거나 전달하는 역할을 한다.|
   |FilterSecurityInterceptor|이 필터는 AccessDecisionManager 로 권한부여 처리를 위임함으로써 접근 제어 결정을 쉽게 해준다.|
+
+## Spring Security 인증 아키텍처 및 
+![image](https://user-images.githubusercontent.com/38865267/154890423-c3d78aab-ad9f-41c6-928e-573fc2c6ad34.png)
+
+1. 클라이언트가 로그인을 시도
+2. AuthenticationFilter는 AuthenticationManager, AuthenticationProvider(s), UserDetailsService를 통해 DB에서 사용자 정보를 읽어온다. <br>여기서 UserDetailsService는 인터페이스이며 이 인터페이스를 구현한 Bean을 생성하면 스프링 시큐리티가 그걸 사용하게 됨, 즉 개발자가 어떤 DB에서 정보를 읽어올지 결정 가능하다.
+3. UserDetailsService는 로그인한 ID에 해당하는 정보를 DB에서 읽어들여 UserDetails를 구현한 객체로 반환한다. UserDetails 정보를 세션에 저장한다.
+4. 스프링 시큐리티는 인메모리 세션저장소인 SecurityContextHolder에 UserDetails 정보를 저장한다.
+5. 클라이언트에게 session ID와 함께 응답한다.
+6. 이후 요청에 대해서는 요청 쿠키에서 JSESSION ID 정보를 통해 이미 로그인 정보가 저장되어있는지 확인하며, 이미 저장되어 있고 유효하면 인증 처리를 해준다.
